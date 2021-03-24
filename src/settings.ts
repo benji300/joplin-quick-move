@@ -15,8 +15,7 @@ export enum DefaultKeys {
   QuickMove6 = 'CmdOrCtrl+Shift+6',
   QuickMove7 = 'CmdOrCtrl+Shift+7',
   QuickMove8 = 'CmdOrCtrl+Shift+8',
-  QuickMove9 = 'CmdOrCtrl+Shift+9',
-  MoveToFolder = 'CmdOrCtrl+Shift+M',
+  QuickMove9 = 'CmdOrCtrl+Shift+9'
 }
 
 /**
@@ -120,8 +119,11 @@ export class Settings {
   private async getFoldersToSelect(): Promise<any> {
     const folders: any[] = await DA.getAllFolders();
 
-    let folderStr: string = '{';
-    folderStr += `"0": " ", `; // default empty
+    // retrieve all folders including parents and store to map
+    // alternative: SortedMap (npm install --save collections)
+    // const sortedMap = require("collections/sorted-map");
+    const map: Map<string, string> = new Map(); // <folder,id>
+    map.set(' ', '0'); // default empty
     for (const folder of folders) {
       let title: string = folder.title;
       if (folder.parent_id) {
@@ -130,10 +132,25 @@ export class Settings {
           title = `${parent.title} / ${folder.title}`;
         }
       }
-      const separator: string = (folders.indexOf(folder) == folders.length - 1) ? '' : ',';
-      folderStr += `"${folder.id}": "${title}"${separator} `;
+      map.set(title, folder.id);
     }
+
+    // sort the map by the titles
+    // https://stackoverflow.com/questions/31158902/is-it-possible-to-sort-a-es6-map-object
+    // const sortedMap = new Map([...map].sort((a, b) => String(a[0]).localeCompare(b[0])));
+    const sortedMap: Map<string, string> = new Map([...map].sort());
+    // https://gist.github.com/tizmagik/19ba6516064a046a37aff57c7c65c9cd
+    const lastValueInSortedMap: string = Array.from(sortedMap)[sortedMap.size - 1][1]; // id
+
+    // prepare JSON string to be parsed
+    let folderStr: string = '{';
+    sortedMap.forEach((id: string, folder: string) => {
+      folderStr += `"${id}": "${folder}"${(lastValueInSortedMap == id) ? '' : ','} `;
+    })
     folderStr += '}';
+    console.log(`folderStr: ${folderStr}`);
+
+    // return JSON object
     return JSON.parse(folderStr);
   }
 
@@ -146,7 +163,8 @@ export class Settings {
     // settings section
     await joplin.settings.registerSection('qm.settings', {
       label: 'Quick Move',
-      iconName: 'fas fa-shipping-fast'
+      iconName: 'fas fa-shipping-fast',
+      description: 'The notebook selection lists are only updated at startup. To display new or renamed notebooks, Joplin must be restarted.'
     });
 
     // private settings
@@ -159,7 +177,7 @@ export class Settings {
       section: 'qm.settings',
       public: true,
       label: 'Keep moved note selected',
-      description: 'If selected note is moved via one of the quick move actions, it still be selected afterwards. Otherwise the next note within the current list is be selected.'
+      description: 'If the selected note is moved via one of the quick move actions, it still be selected afterwards. Otherwise the next note within the current notebook is be selected.'
     });
     await joplin.settings.registerSetting('quickMove1', {
       value: this._quickMove1,
@@ -167,8 +185,8 @@ export class Settings {
       section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 1',
-      description: 'The notebook to which the selected note(s) can be moved quickly without interaction (e.g. with assigned keyboard shortcut). The notebook selection list is only updated on App restart.',
+      label: 'Notebook for quick move action 1',
+      description: 'Select the notebook to which the selected note(s) can be moved quickly without interaction (e.g. with assigned keyboard shortcut).',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove2', {
@@ -177,7 +195,7 @@ export class Settings {
       section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 2',
+      label: 'Notebook for quick move action 2',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove3', {
@@ -186,7 +204,7 @@ export class Settings {
       section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 3',
+      label: 'Notebook for quick move action 3',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove4', {
@@ -195,7 +213,7 @@ export class Settings {
       section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 4',
+      label: 'Notebook for quick move action 4',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove5', {
@@ -204,7 +222,7 @@ export class Settings {
       section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 5',
+      label: 'Notebook for quick move action 5',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove6', {
@@ -213,7 +231,7 @@ export class Settings {
       section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 6',
+      label: 'Notebook for quick move action 6',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove7', {
@@ -222,7 +240,7 @@ export class Settings {
       section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 7',
+      label: 'Notebook for quick move action 7',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove8', {
@@ -231,7 +249,7 @@ export class Settings {
       section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 8',
+      label: 'Notebook for quick move action 8',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove9', {
@@ -240,7 +258,7 @@ export class Settings {
       section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 9',
+      label: 'Notebook for quick move action 9',
       options: folderSelection
     });
 

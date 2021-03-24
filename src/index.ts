@@ -186,10 +186,6 @@ joplin.plugins.register({
       {
         commandName: 'quickMove9',
         accelerator: DefaultKeys.QuickMove9
-      },
-      {
-        commandName: 'moveToFolder',
-        accelerator: DefaultKeys.MoveToFolder
       }
     ];
 
