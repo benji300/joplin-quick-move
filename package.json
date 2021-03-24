@@ -1,5 +1,5 @@
 {
-  "name": "joplin-plugin-benji300-quick-move",
+  "name": "joplin-plugin-quick-move",
   "version": "1.0.0",
   "description": "Collection of commands to quickly move notes to other notebooks.",
   "author": "Benji300",
