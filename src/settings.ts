@@ -7,13 +7,6 @@ import { DA } from './data';
  * Predefined keyboard shortcuts.
  */
 export enum DefaultKeys {
-  TextCheckbox = 'CmdOrCtrl+Shift+C',
-  ToggleTodoState = 'CmdOrCtrl+Shift+Space',
-  MoveToTop = 'CmdOrCtrl+Alt+num8',
-  MoveUp = 'CmdOrCtrl+num8',
-  MoveDown = 'CmdOrCtrl+num2',
-  MoveToBottom = 'CmdOrCtrl+Alt+num2',
-  MoveToFolder = 'CmdOrCtrl+Shift+M',
   QuickMove1 = 'CmdOrCtrl+Shift+1',
   QuickMove2 = 'CmdOrCtrl+Shift+2',
   QuickMove3 = 'CmdOrCtrl+Shift+3',
@@ -22,6 +15,8 @@ export enum DefaultKeys {
   QuickMove6 = 'CmdOrCtrl+Shift+6',
   QuickMove7 = 'CmdOrCtrl+Shift+7',
   QuickMove8 = 'CmdOrCtrl+Shift+8',
+  QuickMove9 = 'CmdOrCtrl+Shift+9',
+  MoveToFolder = 'CmdOrCtrl+Shift+M',
 }
 
 /**
@@ -57,6 +52,7 @@ export class Settings {
   private _quickMove6: string = SettingDefaults.Empty;
   private _quickMove7: string = SettingDefaults.Empty;
   private _quickMove8: string = SettingDefaults.Empty;
+  private _quickMove9: string = SettingDefaults.Empty;
   // advanced settings
   // none
   // internals
@@ -103,17 +99,21 @@ export class Settings {
     return this._quickMove8;
   }
 
+  get quickMove9(): string {
+    return this._quickMove9;
+  }
+
   //#endregion
 
   //#region GLOBAL VALUES
 
-  get notesSortOrder(): Promise<string> {
-    return joplin.settings.globalValue('notes.sortOrder.field');
-  }
+  // get notesSortOrder(): Promise<string> {
+  //   return joplin.settings.globalValue('notes.sortOrder.field');
+  // }
 
-  get uncompletedTodosOnTop(): Promise<boolean> {
-    return joplin.settings.globalValue('uncompletedTodosOnTop');
-  }
+  // get uncompletedTodosOnTop(): Promise<boolean> {
+  //   return joplin.settings.globalValue('uncompletedTodosOnTop');
+  // }
 
   //#endregion
 
@@ -144,9 +144,9 @@ export class Settings {
     const folderSelection: any = await this.getFoldersToSelect();
 
     // settings section
-    await joplin.settings.registerSection('commands.settings', {
-      label: 'Command Collection',
-      iconName: 'fas fa-terminal'
+    await joplin.settings.registerSection('qm.settings', {
+      label: 'Quick Move',
+      iconName: 'fas fa-shipping-fast'
     });
 
     // private settings
@@ -156,7 +156,7 @@ export class Settings {
     await joplin.settings.registerSetting('keepMovedNoteSelected', {
       value: this._keepMovedNoteSelected,
       type: SettingItemType.Bool,
-      section: 'commands.settings',
+      section: 'qm.settings',
       public: true,
       label: 'Keep moved note selected',
       description: 'If selected note is moved via one of the quick move actions, it still be selected afterwards. Otherwise the next note within the current list is be selected.'
@@ -164,74 +164,83 @@ export class Settings {
     await joplin.settings.registerSetting('quickMove1', {
       value: this._quickMove1,
       type: SettingItemType.String,
-      section: 'commands.settings',
+      section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 1.',
+      label: 'Select notebook for quick move action 1',
       description: 'The notebook to which the selected note(s) can be moved quickly without interaction (e.g. with assigned keyboard shortcut). The notebook selection list is only updated on App restart.',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove2', {
       value: this._quickMove2,
       type: SettingItemType.String,
-      section: 'commands.settings',
+      section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 2.',
+      label: 'Select notebook for quick move action 2',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove3', {
       value: this._quickMove3,
       type: SettingItemType.String,
-      section: 'commands.settings',
+      section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 3.',
+      label: 'Select notebook for quick move action 3',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove4', {
       value: this._quickMove4,
       type: SettingItemType.String,
-      section: 'commands.settings',
+      section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 4.',
+      label: 'Select notebook for quick move action 4',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove5', {
       value: this._quickMove5,
       type: SettingItemType.String,
-      section: 'commands.settings',
+      section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 5.',
+      label: 'Select notebook for quick move action 5',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove6', {
       value: this._quickMove6,
       type: SettingItemType.String,
-      section: 'commands.settings',
+      section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 6.',
+      label: 'Select notebook for quick move action 6',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove7', {
       value: this._quickMove7,
       type: SettingItemType.String,
-      section: 'commands.settings',
+      section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 7.',
+      label: 'Select notebook for quick move action 7',
       options: folderSelection
     });
     await joplin.settings.registerSetting('quickMove8', {
       value: this._quickMove8,
       type: SettingItemType.String,
-      section: 'commands.settings',
+      section: 'qm.settings',
       isEnum: true,
       public: true,
-      label: 'Select notebook for quick move action 8.',
+      label: 'Select notebook for quick move action 8',
+      options: folderSelection
+    });
+    await joplin.settings.registerSetting('quickMove9', {
+      value: this._quickMove8,
+      type: SettingItemType.String,
+      section: 'qm.settings',
+      isEnum: true,
+      public: true,
+      label: 'Select notebook for quick move action 9',
       options: folderSelection
     });
 
@@ -268,5 +277,6 @@ export class Settings {
     this._quickMove6 = await this.getOrDefault(event, this._quickMove6, 'quickMove6');
     this._quickMove7 = await this.getOrDefault(event, this._quickMove7, 'quickMove7');
     this._quickMove8 = await this.getOrDefault(event, this._quickMove8, 'quickMove8');
+    this._quickMove9 = await this.getOrDefault(event, this._quickMove9, 'quickMove9');
   }
 }

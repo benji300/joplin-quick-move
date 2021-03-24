@@ -2,7 +2,6 @@ import joplin from 'api';
 import { MenuItem, MenuItemLocation } from 'api/types';
 import { ChangeEvent } from 'api/JoplinSettings';
 import { Settings, DefaultKeys } from './settings';
-import { TextInputDialog } from './dialogs';
 import { DA } from './data';
 
 joplin.plugins.register({
@@ -63,7 +62,6 @@ joplin.plugins.register({
     });
 
     // Command: quickMove2
-    // Desc: Move the selected note(s) directly to the specified folder
     await COMMANDS.register({
       name: 'quickMove2',
       label: `Quick move action 2`,
@@ -75,7 +73,6 @@ joplin.plugins.register({
     });
 
     // Command: quickMove3
-    // Desc: Move the selected note(s) directly to the specified folder
     await COMMANDS.register({
       name: 'quickMove3',
       label: `Quick move action 3`,
@@ -87,7 +84,6 @@ joplin.plugins.register({
     });
 
     // Command: quickMove4
-    // Desc: Move the selected note(s) directly to the specified folder
     await COMMANDS.register({
       name: 'quickMove4',
       label: `Quick move action 4`,
@@ -99,7 +95,6 @@ joplin.plugins.register({
     });
 
     // Command: quickMove5
-    // Desc: Move the selected note(s) directly to the specified folder
     await COMMANDS.register({
       name: 'quickMove5',
       label: `Quick move action 5`,
@@ -111,7 +106,6 @@ joplin.plugins.register({
     });
 
     // Command: quickMove6
-    // Desc: Move the selected note(s) directly to the specified folder
     await COMMANDS.register({
       name: 'quickMove6',
       label: `Quick move action 6`,
@@ -123,7 +117,6 @@ joplin.plugins.register({
     });
 
     // Command: quickMove7
-    // Desc: Move the selected note(s) directly to the specified folder
     await COMMANDS.register({
       name: 'quickMove7',
       label: `Quick move action 7`,
@@ -135,7 +128,6 @@ joplin.plugins.register({
     });
 
     // Command: quickMove8
-    // Desc: Move the selected note(s) directly to the specified folder
     await COMMANDS.register({
       name: 'quickMove8',
       label: `Quick move action 8`,
@@ -143,6 +135,17 @@ joplin.plugins.register({
       enabledCondition: 'someNotesSelected',
       execute: async (noteIds: string[]) => {
         quickMoveToFolder(8, settings.quickMove8, noteIds);
+      }
+    });
+
+    // Command: quickMove9
+    await COMMANDS.register({
+      name: 'quickMove9',
+      label: `Quick move action 9`,
+      iconName: 'fas fa-shipping-fast',
+      enabledCondition: 'someNotesSelected',
+      execute: async (noteIds: string[]) => {
+        quickMoveToFolder(9, settings.quickMove9, noteIds);
       }
     });
 
@@ -179,6 +182,10 @@ joplin.plugins.register({
       {
         commandName: 'quickMove8',
         accelerator: DefaultKeys.QuickMove8
+      },
+      {
+        commandName: 'quickMove9',
+        accelerator: DefaultKeys.QuickMove9
       },
       {
         commandName: 'moveToFolder',
