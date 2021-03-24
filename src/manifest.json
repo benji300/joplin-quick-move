@@ -1,0 +1,18 @@
+{
+  "manifest_version": 1,
+  "id": "joplin.plugin.benji.commands",
+  "app_min_version": "1.6.5",
+  "version": "1.0.0",
+  "name": "Command Collection",
+  "description": "Collection of commands to improve and speed up your daily work with Joplin.",
+  "author": "Benji300",
+  "homepage_url": "https://github.com/benji300/joplin-commands",
+  "repository_url": "https://github.com/benji300/joplin-commands",
+  "keywords": [
+    "commands",
+    "keyboard",
+    "shortcut",
+    "notebook",
+    "note"
+  ]
+}

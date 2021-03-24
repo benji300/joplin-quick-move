@@ -1,0 +1,28 @@
+/* INPUT DIALOG STYLES */
+#joplin-plugin-content {
+  min-width: 400px;
+}
+
+h3 {
+  margin: 5px;
+}
+
+form {
+  display: grid;
+}
+label {
+  padding: 4px;
+}
+input {
+  padding: 4px;
+}
+textarea {
+  padding: 4px;
+  resize: vertical;
+  width: auto !important;
+  word-break: break-all;
+}
+
+i {
+  padding-right: 4px;
+}
