@@ -117,38 +117,38 @@ export class Settings {
   //#endregion
 
   private async getFoldersToSelect(): Promise<any> {
-    const folders: any[] = await DA.getAllFolders();
+    // do not use whitespaces - they will be trimmed!
+    const indentChars = '. ';
+    const maxDepth = 15;
 
-    // retrieve all folders including parents and store to map
-    // alternative: SortedMap (npm install --save collections)
-    // const sortedMap = require("collections/sorted-map");
+    // get all root folders (w/o parent_id)
+    const rootFolders: any[] = await DA.getFoldersFiltered(x => (!x.parent_id));
+
+    // store all folders and subfoldes to map
     const map: Map<string, string> = new Map(); // <folder,id>
     map.set(' ', '0'); // default empty
-    for (const folder of folders) {
-      let title: string = folder.title;
-      if (folder.parent_id) {
-        const parent: any = await DA.getFolderWithId(folder.parent_id);
-        if (parent && parent.title) {
-          title = `${parent.title} / ${folder.title}`;
-        }
+    const addFolders = async (folders: any[], depth: number, parent?: any) => {
+      for (let i = 0; i < folders.length; i++) {
+        const folder = folders[i];
+        // preferred title
+        // unfortunately whitespaces are trimmed from the option values (workaround: '. ')
+        const title: string = indentChars.repeat(depth).concat(folder.title);
+        // alternative solution (parent / folder)
+        // const title: string = (parent) ? `${parent.title} / ${folder.title}` : folder.title;
+        map.set(title, folder.id);
+        const subfolders: any[] = await DA.getFoldersFiltered(x => x.parent_id === folder.id);
+        if (subfolders) await addFolders(subfolders, (depth + 1) < maxDepth ? depth + 1 : maxDepth, folder);
       }
-      map.set(title, folder.id);
-    }
-
-    // sort the map by the titles
-    // https://stackoverflow.com/questions/31158902/is-it-possible-to-sort-a-es6-map-object
-    // const sortedMap = new Map([...map].sort((a, b) => String(a[0]).localeCompare(b[0])));
-    const sortedMap: Map<string, string> = new Map([...map].sort());
-    // https://gist.github.com/tizmagik/19ba6516064a046a37aff57c7c65c9cd
-    const lastValueInSortedMap: string = Array.from(sortedMap)[sortedMap.size - 1][1]; // id
+    };
+    await addFolders(rootFolders, 0);
 
     // prepare JSON string to be parsed
+    const lastValueInMap: string = Array.from(map)[map.size - 1][1]; // id
     let folderStr: string = '{';
-    sortedMap.forEach((id: string, folder: string) => {
-      folderStr += `"${id}": "${folder}"${(lastValueInSortedMap == id) ? '' : ','} `;
+    map.forEach((id: string, folder: string) => {
+      folderStr += `"${id}": "${folder}"${(lastValueInMap == id) ? '' : ','} `;
     })
     folderStr += '}';
-    console.log(`folderStr: ${folderStr}`);
 
     // return JSON object
     return JSON.parse(folderStr);

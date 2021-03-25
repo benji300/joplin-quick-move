@@ -26,7 +26,7 @@ joplin.plugins.register({
 
       // check if folder still exists
       try {
-        await DA.getFolderWithId(quickMoveFolderId);
+        await DA.getFolder(quickMoveFolderId);
       } catch (err) {
         await joplin.views.dialogs.showMessageBox(`Selected notebook of quick move action ${actionId} does not exist. Please select another notebook in the settings.`);
         return;
