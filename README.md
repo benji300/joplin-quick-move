@@ -5,7 +5,7 @@ Command Collection is a plugin to extend the UX of [Joplin's](https://joplinapp.
 It provides a collection of [new commands](#new-commands) to improve and speed up your daily work with the keyboard in Joplin.
 Furthermore it maps also some [internal commands](#mapped-commands) to the main menu to allow to assign keyboard shortcuts to them.
 
-> :warning: **CAUTION** - Requires Joplin **v1.6.5** or newer
+> :warning: **CAUTION** - Requires Joplin **v1.7.10** or newer
 
 ## Table of contents
 
@@ -214,7 +214,7 @@ This plugin adds provides user options which can be changed via `Tools > Options
 
 You like this plugin as much as I do and it improves your daily work with Joplin?
 
-Then I would be very happy if you buy me a beer via [PayPal](https://www.paypal.com/donate?hosted_button_id=6FHDGK3PTNU22) :wink::beer:
+Then I would be very happy if you buy me a :beer: or ☕ via [PayPal](https://www.paypal.com/donate?hosted_button_id=6FHDGK3PTNU22) :wink:
 
 ## Development
 
