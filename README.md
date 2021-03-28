@@ -6,20 +6,6 @@ It provides a collection of [commands](#commands) to quickly move notes to other
 
 > :warning: **CAUTION** - Requires Joplin **v1.7.10** or newer
 
-## Table of contents
-
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [Keyboard shortcuts](#keyboard-shortcuts)
-- [User options](#user-options)
-- [Feedback](#feedback)
-- [Support](#support)
-- [Development](#development)
-- [Changes](#changes)
-- [License](#license)
-
 ## Features
 
 - Provides commands to quickly [move notes to specified notebooks](#usage) without interaction
