@@ -1,7 +1,7 @@
 import joplin from 'api';
 import { MenuItem, MenuItemLocation } from 'api/types';
 import { ChangeEvent } from 'api/JoplinSettings';
-import { Settings, DefaultKeys } from './settings';
+import { DefaultKeys, SettingDefaults, Settings } from './settings';
 import { DA } from './data';
 
 joplin.plugins.register({
@@ -17,7 +17,7 @@ joplin.plugins.register({
     //#region HELPERS
 
     async function quickMoveToFolder(actionId: number, quickMoveFolderId: string, noteIds: string[]) {
-      if (quickMoveFolderId === undefined || quickMoveFolderId === '0') return;
+      if (quickMoveFolderId === undefined || quickMoveFolderId === SettingDefaults.Empty) return;
 
       // get selected note ids and return if empty
       let selectedNoteIds = noteIds;

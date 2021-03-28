@@ -22,7 +22,7 @@ export enum DefaultKeys {
  * Advanced style setting default values.
  * Used when setting is set to 'default'.
  */
-enum SettingDefaults {
+export enum SettingDefaults {
   Empty = '0',
   Default = 'default',
   FontFamily = 'Roboto',
@@ -177,7 +177,7 @@ export class Settings {
       section: 'qm.settings',
       public: true,
       label: 'Keep moved note selected',
-      description: 'If the selected note is moved via one of the move actions, it is still selected afterwards. ' +
+      description: 'If the selected note is moved via one of the quick move actions, it is still selected afterwards. ' +
         'Otherwise, the next note within the current notebook is selected. ' +
         'If several notes have been moved, the last one remains selected.'
     });
