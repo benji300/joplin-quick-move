@@ -4,7 +4,7 @@ Quick Move is a plugin to extend the UX of [Joplin's](https://joplinapp.org/) de
 
 It provides a collection of [commands](#commands) to quickly move notes to other notebooks without user interaction.
 
-> :warning: **CAUTION** - Requires Joplin **v1.7.10** or newer
+> :warning: **CAUTION** - Requires Joplin **v1.8.2** or newer
 
 ## Features
 

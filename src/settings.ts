@@ -160,120 +160,119 @@ export class Settings {
   async register() {
     const folderSelection: any = await this.getFoldersToSelect();
 
-    // settings section
+    // register settings in own section
     await joplin.settings.registerSection('qm.settings', {
       label: 'Quick Move',
       iconName: 'fas fa-shipping-fast',
       description: 'The notebook selection lists are only updated at startup. To display new or renamed notebooks, Joplin must be restarted.'
     });
-
-    // private settings
-    // none
-
-    // general settings
-    await joplin.settings.registerSetting('keepMovedNoteSelected', {
-      value: this._keepMovedNoteSelected,
-      type: SettingItemType.Bool,
-      section: 'qm.settings',
-      public: true,
-      label: 'Keep moved note selected',
-      description: 'If the selected note is moved via one of the quick move actions, it is still selected afterwards. ' +
-        'Otherwise, the next note within the current notebook is selected. ' +
-        'If several notes have been moved, the last one remains selected.'
+    await joplin.settings.registerSettings({
+      // private settings
+      // none
+      // general settings
+      keepMovedNoteSelected: {
+        value: this._keepMovedNoteSelected,
+        type: SettingItemType.Bool,
+        section: 'qm.settings',
+        public: true,
+        label: 'Keep moved note selected',
+        description: 'If the selected note is moved via one of the quick move actions, it is still selected afterwards. ' +
+          'Otherwise, the next note within the current notebook is selected. ' +
+          'If several notes have been moved, the last one remains selected.'
+      },
+      quickMove1: {
+        value: this._quickMove1,
+        type: SettingItemType.String,
+        section: 'qm.settings',
+        isEnum: true,
+        public: true,
+        options: folderSelection,
+        label: 'Notebook for quick move action 1',
+        description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove1".'
+      },
+      quickMove2: {
+        value: this._quickMove2,
+        type: SettingItemType.String,
+        section: 'qm.settings',
+        isEnum: true,
+        public: true,
+        options: folderSelection,
+        label: 'Notebook for quick move action 2',
+        description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove2".'
+      },
+      quickMove3: {
+        value: this._quickMove3,
+        type: SettingItemType.String,
+        section: 'qm.settings',
+        isEnum: true,
+        public: true,
+        options: folderSelection,
+        label: 'Notebook for quick move action 3',
+        description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove3".'
+      },
+      quickMove4: {
+        value: this._quickMove4,
+        type: SettingItemType.String,
+        section: 'qm.settings',
+        isEnum: true,
+        public: true,
+        options: folderSelection,
+        label: 'Notebook for quick move action 4',
+        description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove4".'
+      },
+      quickMove5: {
+        value: this._quickMove5,
+        type: SettingItemType.String,
+        section: 'qm.settings',
+        isEnum: true,
+        public: true,
+        options: folderSelection,
+        label: 'Notebook for quick move action 5',
+        description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove5".'
+      },
+      quickMove6: {
+        value: this._quickMove6,
+        type: SettingItemType.String,
+        section: 'qm.settings',
+        isEnum: true,
+        public: true,
+        options: folderSelection,
+        label: 'Notebook for quick move action 6',
+        description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove6".'
+      },
+      quickMove7: {
+        value: this._quickMove7,
+        type: SettingItemType.String,
+        section: 'qm.settings',
+        isEnum: true,
+        public: true,
+        options: folderSelection,
+        label: 'Notebook for quick move action 7',
+        description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove7".'
+      },
+      quickMove8: {
+        value: this._quickMove8,
+        type: SettingItemType.String,
+        section: 'qm.settings',
+        isEnum: true,
+        public: true,
+        options: folderSelection,
+        label: 'Notebook for quick move action 8',
+        description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove8".'
+      },
+      quickMove9: {
+        value: this._quickMove9,
+        type: SettingItemType.String,
+        section: 'qm.settings',
+        isEnum: true,
+        public: true,
+        options: folderSelection,
+        label: 'Notebook for quick move action 9',
+        description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove9".'
+      }
+      // advanced settings
+      // none
     });
-    await joplin.settings.registerSetting('quickMove1', {
-      value: this._quickMove1,
-      type: SettingItemType.String,
-      section: 'qm.settings',
-      isEnum: true,
-      public: true,
-      label: 'Notebook for quick move action 1',
-      description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove1".',
-      options: folderSelection
-    });
-    await joplin.settings.registerSetting('quickMove2', {
-      value: this._quickMove2,
-      type: SettingItemType.String,
-      section: 'qm.settings',
-      isEnum: true,
-      public: true,
-      label: 'Notebook for quick move action 2',
-      description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove2".',
-      options: folderSelection
-    });
-    await joplin.settings.registerSetting('quickMove3', {
-      value: this._quickMove3,
-      type: SettingItemType.String,
-      section: 'qm.settings',
-      isEnum: true,
-      public: true,
-      label: 'Notebook for quick move action 3',
-      description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove3".',
-      options: folderSelection
-    });
-    await joplin.settings.registerSetting('quickMove4', {
-      value: this._quickMove4,
-      type: SettingItemType.String,
-      section: 'qm.settings',
-      isEnum: true,
-      public: true,
-      label: 'Notebook for quick move action 4',
-      description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove4".',
-      options: folderSelection
-    });
-    await joplin.settings.registerSetting('quickMove5', {
-      value: this._quickMove5,
-      type: SettingItemType.String,
-      section: 'qm.settings',
-      isEnum: true,
-      public: true,
-      label: 'Notebook for quick move action 5',
-      description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove5".',
-      options: folderSelection
-    });
-    await joplin.settings.registerSetting('quickMove6', {
-      value: this._quickMove6,
-      type: SettingItemType.String,
-      section: 'qm.settings',
-      isEnum: true,
-      public: true,
-      label: 'Notebook for quick move action 6',
-      description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove6".',
-      options: folderSelection
-    });
-    await joplin.settings.registerSetting('quickMove7', {
-      value: this._quickMove7,
-      type: SettingItemType.String,
-      section: 'qm.settings',
-      isEnum: true,
-      public: true,
-      label: 'Notebook for quick move action 7',
-      description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove7".',
-      options: folderSelection
-    });
-    await joplin.settings.registerSetting('quickMove8', {
-      value: this._quickMove8,
-      type: SettingItemType.String,
-      section: 'qm.settings',
-      isEnum: true,
-      public: true,
-      label: 'Notebook for quick move action 8',
-      description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove8".',
-      options: folderSelection
-    });
-    await joplin.settings.registerSetting('quickMove9', {
-      value: this._quickMove8,
-      type: SettingItemType.String,
-      section: 'qm.settings',
-      isEnum: true,
-      public: true,
-      label: 'Notebook for quick move action 9',
-      description: 'Select notebook to which the selected note(s) can be moved directly without interaction. Assign keyboard shortcut to command "quickMove9".',
-      options: folderSelection
-    });
-
-    // advanced settings
-    // none
 
     // initially read settings
     await this.read();

@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - None
 
+## [1.1.0] - 2021-08-10
+
+### Changed
+
+- Updated plugin API to version v1.8.2 (`registerSettings`) to support app version v2.2.4 or newer
+
 ## [1.0.0] - 2021-03-28
 
 - Initial Release

@@ -1,6 +1,6 @@
 {
   "name": "joplin-plugin-quick-move",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Collection of commands to quickly move notes to other notebooks.",
   "author": "Benji300",
   "homepage": "https://github.com/benji300/joplin-quick-move",
